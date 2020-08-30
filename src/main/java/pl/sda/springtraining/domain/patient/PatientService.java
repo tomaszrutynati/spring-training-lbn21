@@ -2,7 +2,6 @@ package pl.sda.springtraining.domain.patient;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.sda.springtraining.external.patient.DummyPatientRepository;
 
 import java.util.List;
 
