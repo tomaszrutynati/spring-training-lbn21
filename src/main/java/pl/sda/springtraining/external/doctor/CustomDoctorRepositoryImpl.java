@@ -18,8 +18,7 @@ public class CustomDoctorRepositoryImpl implements CustomDoctorRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
-    public List<DoctorEntity> findBySearchParams(SearchParams searchParams) {
+    public List<DoctorEntity> findWithSearchParams(SearchParams searchParams) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<DoctorEntity> query = cb.createQuery(DoctorEntity.class);
         Root<DoctorEntity> root = query.from(DoctorEntity.class);

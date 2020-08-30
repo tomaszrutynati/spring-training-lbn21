@@ -18,7 +18,7 @@ public class DatabaseDoctorRepository implements DoctorRepository {
 
     @Override
     public List<Doctor> findByParams(SearchParams searchParams) {
-        return jpaDoctorRepository.findBySearchParams(searchParams)
+        return jpaDoctorRepository.findWithSearchParams(searchParams)
                 .stream()
                 .map(mapToDomain())
                 .collect(Collectors.toList());
