@@ -63,11 +63,11 @@ public class DatabasePatientRepository implements PatientRepository {
 
     private Function<PatientEntity, Patient> mapToDomain() {
         return ent -> new Patient(ent.getId(), ent.getName(),
-                ent.getSurname(), ent.getInsuranceNo());
+                ent.getSurname(), ent.getInsuranceNo(), null);
     }
 
     private Patient mapToDomain(PatientEntity ent) {
         return new Patient(ent.getId(), ent.getName(),
-                ent.getSurname(), ent.getInsuranceNo());
+                ent.getSurname(), ent.getInsuranceNo(), null);
     }
 }

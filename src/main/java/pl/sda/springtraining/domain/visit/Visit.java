@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.sda.springtraining.web.validator.Hour;
 import pl.sda.springtraining.web.visit.model.UpdateVisitRq;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ public class Visit {
     private Integer id;
     private String roomNumber;
     private LocalDate visitDate;
+    @Hour
     private int hour;
     private int patient;
     private int doctor;

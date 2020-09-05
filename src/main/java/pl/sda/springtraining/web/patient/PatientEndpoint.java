@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.springtraining.domain.patient.Patient;
 import pl.sda.springtraining.domain.patient.PatientService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class PatientEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    void createPatient(@RequestBody Patient patient) {
+    void createPatient(@RequestBody @Valid Patient patient) {
         patientService.create(patient);
     }
 

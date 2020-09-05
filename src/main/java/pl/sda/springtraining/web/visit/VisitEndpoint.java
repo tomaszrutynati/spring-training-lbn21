@@ -7,6 +7,9 @@ import pl.sda.springtraining.domain.visit.Visit;
 import pl.sda.springtraining.domain.visit.VisitService;
 import pl.sda.springtraining.web.visit.model.UpdateVisitRq;
 
+import javax.validation.Valid;
+
+
 @RestController
 @RequestMapping("/visit")
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class VisitEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    void scheduleVisit(@RequestBody Visit visit) {
+    void scheduleVisit(@RequestBody @Valid Visit visit) {
         visitService.scheduleVisit(visit);
     }
 
