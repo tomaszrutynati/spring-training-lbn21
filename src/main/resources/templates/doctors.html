@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Przychodnia</title>
+
+    <style>
+        .header {
+            background-color: darkkhaki;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead class="header">
+    <td>Imię</td>
+    <td>Nazwisko</td>
+    <td>Specjalizacja</td>
+    <td>Pracuje od</td>
+    <td>Stawka za h</td>
+    </thead>
+    <tbody>
+    <tr th:each="doctor : ${doctors}">
+        <td><span th:text="${doctor.name}"></span></td>
+        <td><span th:text="${doctor.surname}"></span></td>
+        <td><span th:text="${doctor.specialization}"></span></td>
+        <td><span th:text="${doctor.hireDate}"></span></td>
+        <td><span th:text="${doctor.hourRate}"></span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
