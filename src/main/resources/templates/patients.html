@@ -27,7 +27,8 @@
             <tr th:each="patient, iterStat : ${patients}" th:class="${iterStat.odd} ? 'odd' : 'even'">
                 <td><span th:text="${patient.name}"></span></td>
                 <td><span th:text="${patient.surname}"></span></td>
-                <td><span th:text="${patient.insuranceNo}"></span></td>
+                <td th:if="${patient.insuranceNo != null}"><span th:text="${patient.insuranceNo}"></span></td>
+                <td th:unless="${patient.insuranceNo != null}">Brak numeru!</td>
             </tr>
         </tbody>
     </table>
