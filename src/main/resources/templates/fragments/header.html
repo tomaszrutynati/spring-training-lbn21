@@ -1,0 +1,16 @@
+<html lang="pl" xmlns:th="thymeleaf.org">
+
+<body>
+
+<div th:fragment="navigation">
+    <h1>Przychodnia Spring</h1>
+
+    <ul>
+        <li><a th:href="@{/patient}">Pacjenci</a></li>
+        <li><a th:href="@{/doctor}">Lekarze</a></li>
+        <li><a th:href="@{/visit}">Wizyty (w budowie)</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

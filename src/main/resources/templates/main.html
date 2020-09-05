@@ -5,7 +5,8 @@
     <title>Przychodnia</title>
 </head>
 <body>
-    <h1>Przychodnia Spring</h1>
+
+    <div th:replace="fragments/header :: navigation"></div>
 
     <p>Dziś jest : <span th:text="${date}"></span></p>
     <p>Pracujemy od <span th:text="${config.openingHour}"></span> do
