@@ -58,11 +58,16 @@ public class DatabasePatientRepository implements PatientRepository {
     @Override
     public Optional<Patient> getByInsuranceNo(String insuranceNo) {
         return patientRepository.findByInsuranceNo(insuranceNo)
-                .map(mapToDomain());
+                .map(ent -> mapToDomain(ent));
     }
 
     private Function<PatientEntity, Patient> mapToDomain() {
         return ent -> new Patient(ent.getId(), ent.getName(),
+                ent.getSurname(), ent.getInsuranceNo());
+    }
+
+    private Patient mapToDomain(PatientEntity ent) {
+        return new Patient(ent.getId(), ent.getName(),
                 ent.getSurname(), ent.getInsuranceNo());
     }
 }

@@ -1,5 +1,6 @@
 package pl.sda.springtraining.web.visit.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 public class UpdateVisitRq {
     private int id;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    //@JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate visitDate;
     private int hour;
 }
