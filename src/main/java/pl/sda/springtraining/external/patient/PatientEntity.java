@@ -8,7 +8,6 @@ import pl.sda.springtraining.domain.patient.Patient;
 import pl.sda.springtraining.external.visit.VisitEntity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Set;
 
 @NoArgsConstructor

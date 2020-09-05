@@ -29,4 +29,9 @@ public class VisitEntity {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private PatientEntity patient;
+
+    public void changeVisitTime(LocalDate date, int hour) {
+        this.visitDate = date;
+        this.hour = hour;
+    }
 }
