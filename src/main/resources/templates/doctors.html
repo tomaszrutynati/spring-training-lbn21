@@ -23,7 +23,12 @@
     <tr th:each="doctor : ${doctors}">
         <td><span th:text="${doctor.name}"></span></td>
         <td><span th:text="${doctor.surname}"></span></td>
-        <td><span th:text="${doctor.specialization}"></span></td>
+        <td th:switch="${doctor.specialization}">
+            <span th:case="KARD">kardiolog</span>
+            <span th:case="GASTRO">gastrolog</span>
+            <span th:case="ORT">ortopeda</span>
+            <span th:case="*">inna</span>
+        </td>
         <td><span th:text="${doctor.hireDate}"></span></td>
         <td th:if="${doctor.hourRate > 100}">
             <span style="color:red" th:text="${doctor.hourRate}"></span>
