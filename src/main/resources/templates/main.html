@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Przychodnia</title>
+</head>
+<body>
+    <h1>Przychodnia Spring</h1>
+
+    <p>Dziś jest : <span th:text="${date}"></span></p>
+    <p>Pracujemy od <span th:text="${config.openingHour}"></span> do
+        <span th:text="${config.closingHour}"></span></p>
+    <p>Adres <span th:text="${config.address.street}"></span>
+        <span th:text="${config.address.number}"></span>,
+        <span th:text="${config.address.city}"></span></p>
+</body>
+</html>

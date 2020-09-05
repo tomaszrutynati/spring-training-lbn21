@@ -11,7 +11,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/visit")
+@RequestMapping("/api/visit")
 @RequiredArgsConstructor
 public class VisitEndpoint {
 
