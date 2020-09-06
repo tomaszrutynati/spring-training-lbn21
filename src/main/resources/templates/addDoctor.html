@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Przychodnia</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: navigation"></div>
+
+    <form method="post" th:action="@{/doctor/add}" th:object="${doctor}">
+        Imię: <input type="text" th:field="*{name}"/><br>
+        Nazwisko: <input type="text" th:field="*{surname}"/><br>
+        Stawka za h: <input type="number" th:field="*{hourRate}"/><br>
+        Data zatrudnienia: <input type="date" th:field="*{hireDate}"/><br>
+        Specjalizacja: <select th:field="*{specialization}">
+            <option value="KARD">kardiolog</option>
+            <option value="GASTRO">gastrolog</option>
+            <option value="ORT">ortopeda</option>
+            <option value="INNA">inna</option>
+        </select>
+        <input type="submit" value="Zapisz"/>
+    </form>
+
+
+</body>
+</html>

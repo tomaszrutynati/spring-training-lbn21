@@ -1,9 +1,7 @@
 package pl.sda.springtraining.domain.doctor;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -16,6 +14,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
+@ToString
 public class Doctor {
     private Integer id;
     @NotNull(message = "Doctor name cannot be null")
@@ -24,6 +24,7 @@ public class Doctor {
     private String surname;
     private BigDecimal hourRate;
     @PastOrPresent(message = "Cannot hire in future")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate hireDate;
     private String specialization;
 }
