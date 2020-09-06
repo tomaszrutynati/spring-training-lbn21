@@ -21,9 +21,4 @@ public class UserService {
 
         userRepository.create(user);
     }
-
-    public Optional<User> findByUsername(String username) {
-        return userRepository.getByUsername(username);
-    }
-
 }
