@@ -1,6 +1,7 @@
 package pl.sda.springtraining.mvc;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ public class PatientController {
     private final PatientService patientService;
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET})
+    @PreAuthorize("isAuthenticated()")
     ModelAndView allPatientsPage() {
         ModelAndView mav = new ModelAndView("patients.html");
         mav.addObject("patients", patientService.getAll());
@@ -28,6 +30,7 @@ public class PatientController {
     }
 
     @GetMapping("/addOrUpdate")
+    @PreAuthorize("hasRole('ADMIN')")
     ModelAndView addPatientPage(@RequestParam(name = "id", required = false) Integer id) {
         ModelAndView mav = new ModelAndView("addPatient.html");
         if (id != null) {
@@ -39,6 +42,7 @@ public class PatientController {
     }
 
     @GetMapping("/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     String deletePatient(@RequestParam Integer id) {
         patientService.delete(id);
 
@@ -46,6 +50,7 @@ public class PatientController {
     }
 
     @PostMapping("/addOrUpdate")
+    @PreAuthorize("hasRole('ADMIN')")
     String addOrUpdatePatient(@ModelAttribute @Valid Patient patient, BindingResult bindingResult,
                               Model model) {
         if (bindingResult.hasErrors()) {
