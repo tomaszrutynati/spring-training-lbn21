@@ -38,6 +38,8 @@
             </tr>
         </tbody>
     </table>
-    <p><a th:href="@{/patient/addOrUpdate}">Dodaj pacjenta</a></p>
+    <div sec:authorize="hasRole('ADMIN')">
+        <p><a th:href="@{/patient/addOrUpdate}">Dodaj pacjenta</a></p>
+    </div>
 </body>
 </html>

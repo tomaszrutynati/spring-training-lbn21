@@ -5,15 +5,23 @@
 <div th:fragment="navigation">
     <h1>Przychodnia Spring</h1>
 
-    <ul>
-        <li><a th:href="@{/patient}">Pacjenci</a></li>
-        <li><a th:href="@{/doctor}">Lekarze</a></li>
-        <li><a th:href="@{/visit}">Wizyty (w budowie)</a></li>
-    </ul>
+    <div sec:authorize="isAuthenticated()">
+        <ul>
+            <li><a th:href="@{/patient}">Pacjenci</a></li>
+            <li><a th:href="@{/doctor}">Lekarze</a></li>
+            <li><a th:href="@{/visit}">Wizyty (w budowie)</a></li>
+        </ul>
+    </div>
 
-    <form method="post" th:action="@{/logout}">
-        <input type="submit" value="Wyloguj"/>
-    </form>
+    <div sec:authorize="isAuthenticated()">
+        <p>Jesteś zalogowany jako <span sec:authentication="name"></span></p>
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" value="Wyloguj"/>
+        </form>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">Zaloguj się</a>
+    </div>
 </div>
 
 </body>
