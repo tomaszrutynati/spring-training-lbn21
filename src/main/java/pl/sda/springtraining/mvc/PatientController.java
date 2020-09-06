@@ -10,6 +10,8 @@ import pl.sda.springtraining.domain.patient.Patient;
 import pl.sda.springtraining.domain.patient.PatientService;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/patient")
@@ -44,8 +46,16 @@ public class PatientController {
     }
 
     @PostMapping("/addOrUpdate")
-    String addOrUpdatePatient(@ModelAttribute @Valid Patient patient, BindingResult bindingResult) {
+    String addOrUpdatePatient(@ModelAttribute @Valid Patient patient, BindingResult bindingResult,
+                              Model model) {
         if (bindingResult.hasErrors()) {
+/*          2 sposob
+          List<String> errors = bindingResult.getAllErrors()
+                    .stream().map(err -> err.getDefaultMessage())
+                    .collect(Collectors.toList());
+
+            model.addAttribute("errors", errors);*/
+
             return "addPatient.html";
         }
 
