@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Przychodnia</title>
+    <style>
+        .error {
+            color: red
+        }
+    </style>
 </head>
 <body>
     <div th:replace="fragments/header :: navigation"></div>
 
     <form method="post" th:action="@{/patient/addOrUpdate}" th:object="${patient}">
         <input type="hidden" th:field="*{id}"/>
-        Imię: <input type="text" th:field="*{name}"/><br>
-        Nazwisko: <input type="text" th:field="*{surname}"/><br>
+        Imię: <input type="text" th:field="*{name}"/>
+        <span class="error" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"/><br>
+
+        Nazwisko: <input type="text" th:field="*{surname}"/>
+        <span class="error" th:if="${#fields.hasErrors('*{surname}')}" th:errors="*{surname}"/><br>
         Nr ubezpieczenia: <input type="text" th:field="*{insuranceNo}"/><br>
         Obywatelstwo: <input type="text" th:field="*{nationality}"/><br>
         <input type="submit" value="Zapisz"/>

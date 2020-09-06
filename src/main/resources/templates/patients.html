@@ -25,6 +25,7 @@
             <td>Nazwisko</td>
             <td>Nr ubezpieczenia</td>
             <td>Edytuj</td>
+            <td>Usuń</td>
         </thead>
         <tbody>
             <tr th:each="patient, iterStat : ${patients}" th:class="${iterStat.odd} ? 'odd' : 'even'">
@@ -33,6 +34,7 @@
                 <td th:if="${patient.insuranceNo != null}"><span th:text="${patient.insuranceNo}"></span></td>
                 <td th:unless="${patient.insuranceNo != null}">Brak numeru!</td>
                 <td><a th:href="@{/patient/addOrUpdate?id=} + ${patient.id}">Edytuj</a></td>
+                <td><a th:href="@{/patient/delete?id=} + ${patient.id}">Usuń</a></td>
             </tr>
         </tbody>
     </table>

@@ -3,10 +3,13 @@ package pl.sda.springtraining.mvc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.sda.springtraining.domain.patient.Patient;
 import pl.sda.springtraining.domain.patient.PatientService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/patient")
@@ -33,8 +36,19 @@ public class PatientController {
         return mav;
     }
 
+    @GetMapping("/delete")
+    String deletePatient(@RequestParam Integer id) {
+        patientService.delete(id);
+
+        return "redirect:/patient";
+    }
+
     @PostMapping("/addOrUpdate")
-    String addOrUpdatePatient(@ModelAttribute Patient patient) {
+    String addOrUpdatePatient(@ModelAttribute @Valid Patient patient, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "addPatient.html";
+        }
+
         if (patient.getId() == null) {
             patientService.create(patient);
         } else {
