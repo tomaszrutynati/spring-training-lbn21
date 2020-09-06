@@ -7,7 +7,8 @@
 <body>
     <div th:replace="fragments/header :: navigation"></div>
 
-    <form method="post" th:action="@{/patient/add}" th:object="${patient}">
+    <form method="post" th:action="@{/patient/addOrUpdate}" th:object="${patient}">
+        <input type="hidden" th:field="*{id}"/>
         Imię: <input type="text" th:field="*{name}"/><br>
         Nazwisko: <input type="text" th:field="*{surname}"/><br>
         Nr ubezpieczenia: <input type="text" th:field="*{insuranceNo}"/><br>

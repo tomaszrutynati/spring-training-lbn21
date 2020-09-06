@@ -22,17 +22,24 @@ public class PatientController {
         return mav;
     }
 
-    @GetMapping("/add")
-    ModelAndView addPatientPage() {
+    @GetMapping("/addOrUpdate")
+    ModelAndView addPatientPage(@RequestParam(name = "id", required = false) Integer id) {
         ModelAndView mav = new ModelAndView("addPatient.html");
-        mav.addObject("patient", new Patient());
+        if (id != null) {
+            mav.addObject("patient", patientService.getOne(id));
+        } else {
+            mav.addObject("patient", new Patient());
+        }
         return mav;
     }
 
-    @PostMapping("/add")
-    String addNewPatient(@ModelAttribute("patient") Patient newPatient) {
-        patientService.create(newPatient);
-
+    @PostMapping("/addOrUpdate")
+    String addOrUpdatePatient(@ModelAttribute Patient patient) {
+        if (patient.getId() == null) {
+            patientService.create(patient);
+        } else {
+            patientService.update(patient);
+        }
         return "redirect:/patient";
     }
 
