@@ -10,6 +10,10 @@
         <li><a th:href="@{/doctor}">Lekarze</a></li>
         <li><a th:href="@{/visit}">Wizyty (w budowie)</a></li>
     </ul>
+
+    <form method="post" th:action="@{/logout}">
+        <input type="submit" value="Wyloguj"/>
+    </form>
 </div>
 
 </body>
