@@ -2,6 +2,7 @@ package pl.sda.springtraining.web.doctor;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.springtraining.domain.doctor.Doctor;
@@ -27,8 +28,7 @@ public class DoctorEndpoint {
 
             return ResponseEntity.status(400).body(errMsgs);
         } else {
-            //dodaj lekarza
-            //doctorService.create(doctor);
+            doctorService.createDoctor(doctor);
             return ResponseEntity.status(201).build();
         }
     }

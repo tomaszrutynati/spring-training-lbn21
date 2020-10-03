@@ -15,4 +15,8 @@ public class DoctorService {
     public List<Doctor> findByParams(SearchParams searchParams) {
         return doctorRepository.findByParams(searchParams);
     }
+
+    public void createDoctor(Doctor doctor) {
+        doctorRepository.createDoctor(doctor);
+    }
 }

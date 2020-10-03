@@ -17,6 +17,19 @@ public class DatabaseDoctorRepository implements DoctorRepository {
     private final JpaDoctorRepository jpaDoctorRepository;
 
     @Override
+    public void createDoctor(Doctor doctor) {
+        DoctorEntity entity = DoctorEntity.builder()
+                .name(doctor.getName())
+                .surname(doctor.getSurname())
+                .specialization(doctor.getSpecialization())
+                .hireDate(doctor.getHireDate())
+                .hourRate(doctor.getHourRate())
+                .build();
+        jpaDoctorRepository.save(entity);
+
+    }
+
+    @Override
     public List<Doctor> findByParams(SearchParams searchParams) {
         return jpaDoctorRepository.findWithSearchParams(searchParams)
                 .stream()
