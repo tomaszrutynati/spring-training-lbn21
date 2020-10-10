@@ -6,23 +6,25 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import pl.sda.springtraining.domain.patient.Patient;
 
+import java.util.UUID;
+
 public class DatabasePatientRepositoryTest {
 
-    private JpaPatientRepository jpaPatientRepository = Mockito.mock(JpaPatientRepository.class);
+    private MongoPatientRepository jpaPatientRepository = Mockito.mock(MongoPatientRepository.class);
     private DatabasePatientRepository repository = new DatabasePatientRepository(jpaPatientRepository);
 
-    private ArgumentCaptor<PatientEntity> patientEntityCaptor = ArgumentCaptor.forClass(PatientEntity.class);
+    private ArgumentCaptor<PatientDocument> patientEntityCaptor = ArgumentCaptor.forClass(PatientDocument.class);
 
     @Test
     public void shouldPersistNewPatient() {
         //given
-        Patient patient = new Patient(1, "Robert", "Kubica", "132", "PL");
+        Patient patient = new Patient(UUID.randomUUID().toString(), "Robert", "Kubica", "132", "PL");
         //when
         repository.create(patient);
         //then
         Mockito.verify(jpaPatientRepository).save(patientEntityCaptor.capture());
 
-        PatientEntity entity = patientEntityCaptor.getValue();
+        PatientDocument entity = patientEntityCaptor.getValue();
         Assertions.assertEquals("Robert", entity.getName());
         Assertions.assertEquals("Kubica", entity.getSurname());
         Assertions.assertEquals("132", entity.getInsuranceNo());

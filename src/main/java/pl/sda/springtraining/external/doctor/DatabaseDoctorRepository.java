@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DatabaseDoctorRepository implements DoctorRepository {
 
-    private final JpaDoctorRepository jpaDoctorRepository;
+    private final MongoDoctorRepository jpaDoctorRepository;
 
     @Override
     public void createDoctor(Doctor doctor) {
-        DoctorEntity entity = DoctorEntity.builder()
+        DoctorDocument entity = DoctorDocument.builder()
                 .name(doctor.getName())
                 .surname(doctor.getSurname())
                 .specialization(doctor.getSpecialization())
@@ -37,7 +37,7 @@ public class DatabaseDoctorRepository implements DoctorRepository {
                 .collect(Collectors.toList());
     }
 
-    private Function<DoctorEntity, Doctor> mapToDomain() {
+    private Function<DoctorDocument, Doctor> mapToDomain() {
         return ent -> Doctor.builder()
                 .id(ent.getId()).name(ent.getName()).surname(ent.getSurname())
                 .hourRate(ent.getHourRate()).hireDate(ent.getHireDate())

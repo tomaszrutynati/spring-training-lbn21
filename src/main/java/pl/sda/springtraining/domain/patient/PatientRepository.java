@@ -8,9 +8,9 @@ public interface PatientRepository {
 
     void update(Patient patient);
 
-    void delete(int id);
+    void delete(String id);
 
-    Optional<Patient> getOne(int id);
+    Optional<Patient> getOne(String id);
 
     List<Patient> getAll();
 

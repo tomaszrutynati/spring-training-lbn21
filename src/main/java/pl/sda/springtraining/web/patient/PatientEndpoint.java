@@ -34,12 +34,12 @@ public class PatientEndpoint {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@RequestParam int id) {
+    void delete(@RequestParam String id) {
         patientService.delete(id);
     }
 
     @GetMapping("/{id}")
-    Patient getById(@PathVariable int id) {
+    Patient getById(@PathVariable String id) {
         return patientService.getOne(id);
     }
 }

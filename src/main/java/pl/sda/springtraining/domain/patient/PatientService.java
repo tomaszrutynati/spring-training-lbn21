@@ -28,7 +28,7 @@ public class PatientService {
         repository.update(patient);
     }
 
-    public Patient getOne(int id) {
+    public Patient getOne(String id) {
         return repository.getOne(id)
             .orElseThrow(() -> new IllegalArgumentException("Patient with given id not exists"));
     }
@@ -37,7 +37,7 @@ public class PatientService {
         return repository.getAll();
     }
 
-    public void delete(int id) {
+    public void delete(String id) {
         repository.delete(id);
     }
 }

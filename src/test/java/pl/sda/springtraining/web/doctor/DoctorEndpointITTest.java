@@ -1,10 +1,11 @@
 package pl.sda.springtraining.web.doctor;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
@@ -13,12 +14,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.sda.springtraining.domain.doctor.Doctor;
-import pl.sda.springtraining.external.doctor.DoctorEntity;
-import pl.sda.springtraining.external.doctor.JpaDoctorRepository;
+import pl.sda.springtraining.external.doctor.DoctorDocument;
+import pl.sda.springtraining.external.doctor.MongoDoctorRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -29,7 +29,12 @@ public class DoctorEndpointITTest {
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private JpaDoctorRepository jpaDoctorRepository;
+    private MongoDoctorRepository jpaDoctorRepository;
+
+    @BeforeEach
+    public void clean() {
+        jpaDoctorRepository.deleteAll();
+    }
 
     @Test
     public void shouldCreateNewDoctor() {
@@ -46,9 +51,9 @@ public class DoctorEndpointITTest {
                 entity, Void.class);
         //then
         Assertions.assertEquals(201, response.getStatusCodeValue());
-        List<DoctorEntity> all = jpaDoctorRepository.findAll();
+        List<DoctorDocument> all = jpaDoctorRepository.findAll();
         Assertions.assertEquals(1, all.size());
-        DoctorEntity firstDoctor = all.get(0);
+        DoctorDocument firstDoctor = all.get(0);
         Assertions.assertEquals("Adam", firstDoctor.getName());
         Assertions.assertEquals("Malysz", firstDoctor.getSurname());
         Assertions.assertEquals("Okulista", firstDoctor.getSpecialization());

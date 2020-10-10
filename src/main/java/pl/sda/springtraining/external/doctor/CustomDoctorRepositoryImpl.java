@@ -1,40 +1,39 @@
 package pl.sda.springtraining.external.doctor;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import pl.sda.springtraining.web.doctor.SearchParams;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class CustomDoctorRepositoryImpl implements CustomDoctorRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final MongoTemplate mongoTemplate;
 
-    public List<DoctorEntity> findWithSearchParams(SearchParams searchParams) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<DoctorEntity> query = cb.createQuery(DoctorEntity.class);
-        Root<DoctorEntity> root = query.from(DoctorEntity.class);
-        List<Predicate> predicates = new ArrayList<>();
+    public List<DoctorDocument> findWithSearchParams(SearchParams searchParams) {
+        Criteria criteria = null;
         if (searchParams.getName() != null) {
-            predicates.add(cb.equal(root.get("name"), searchParams.getName()));
+            if (criteria == null) {
+                criteria = Criteria.where("name").is(searchParams.getName());
+            } else {
+                criteria.and("name").is(searchParams.getName());
+            }
         }
         if (searchParams.getMinRate() != null) {
-            predicates.add(cb.greaterThan(root.get("hourRate"), searchParams.getMinRate()));
-        }
-        if (searchParams.getHireTo() != null) {
-            predicates.add(cb.lessThan(root.get("hireDate"), searchParams.getHireTo()));
+            if (criteria == null) {
+                criteria = Criteria.where("hourRate").gt(searchParams.getName());
+            } else {
+                criteria.and("hourRate").gt(searchParams.getName());
+            }
         }
         //... Kolejne warunki
 
-        query.where(predicates.toArray(new Predicate[predicates.size()]));
-        return entityManager.createQuery(query).getResultList();
+
+        return mongoTemplate.find(Query.query(criteria), DoctorDocument.class);
     }
 }

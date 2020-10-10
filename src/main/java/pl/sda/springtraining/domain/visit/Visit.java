@@ -14,13 +14,13 @@ import java.time.LocalDate;
 @Getter
 @Builder
 public class Visit {
-    private Integer id;
+    private String id;
     private String roomNumber;
     private LocalDate visitDate;
     @Hour
     private int hour;
-    private int patient;
-    private int doctor;
+    private String patient;
+    private String doctor;
 
     public void updateVisit(UpdateVisitRq rq) {
         this.visitDate = rq.getVisitDate();

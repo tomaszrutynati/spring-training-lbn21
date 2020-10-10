@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class PatientServiceTest {
 
@@ -39,10 +40,11 @@ public class PatientServiceTest {
     @Test
     public void shouldReturnPatientById() {
         //given
-        Patient patient = new Patient(1, "Robert", "Kubica", "132", "PL");
-        Mockito.when(patientRepository.getOne(1)).thenReturn(Optional.of(patient));
+        String id = UUID.randomUUID().toString();
+        Patient patient = new Patient(id, "Robert", "Kubica", "132", "PL");
+        Mockito.when(patientRepository.getOne(id)).thenReturn(Optional.of(patient));
         //when
-        Patient returnedPatient = patientService.getOne(1);
+        Patient returnedPatient = patientService.getOne(id);
         //then
         Assertions.assertEquals("Robert", returnedPatient.getName());
         Assertions.assertEquals("Kubica", returnedPatient.getSurname());

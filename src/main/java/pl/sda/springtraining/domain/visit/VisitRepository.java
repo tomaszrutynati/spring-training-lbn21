@@ -6,7 +6,7 @@ public interface VisitRepository {
 
     void create(Visit visit);
 
-    Optional<Visit> findById(int id);
+    Optional<Visit> findById(String id);
 
     void update(Visit visit);
 }

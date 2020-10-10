@@ -4,33 +4,32 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import pl.sda.springtraining.domain.patient.Patient;
-import pl.sda.springtraining.external.visit.VisitEntity;
+import pl.sda.springtraining.external.visit.VisitDocument;
 
-import javax.persistence.*;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
-@Entity
-@Table(name = "patients")
-public class PatientEntity {
+@Document(collection = "patients")
+public class PatientDocument {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     private String name;
 
+    @Indexed
     private String surname;
 
-    @Column(length = 20, unique = true)
     private String insuranceNo;
 
-    @OneToMany(mappedBy = "patient")
-    private Set<VisitEntity> visits;
+    private Set<String> visits;
 
     public void updateFromDomain(Patient patient) {
         this.name = patient.getName();

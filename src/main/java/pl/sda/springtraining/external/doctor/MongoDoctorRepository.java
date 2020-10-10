@@ -1,11 +1,11 @@
 package pl.sda.springtraining.external.doctor;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JpaDoctorRepository extends
-        JpaRepository<DoctorEntity, Integer>, CustomDoctorRepository {
+public interface MongoDoctorRepository extends
+        MongoRepository<DoctorDocument, String>, CustomDoctorRepository {
 
 }
 

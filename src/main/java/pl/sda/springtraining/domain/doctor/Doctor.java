@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class Doctor {
-    private Integer id;
+    private String id;
     @NotNull(message = "Doctor name cannot be null")
     private String name;
     @NotEmpty(message = "Doctor surname cannot be empty")

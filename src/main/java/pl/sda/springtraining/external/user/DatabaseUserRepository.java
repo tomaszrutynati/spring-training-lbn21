@@ -10,10 +10,10 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class DatabaseUserRepository implements UserRepository {
-    private final JpaUserRepository userRepository;
+    private final MongoUserRepository userRepository;
     @Override
     public void create(User user) {
-        UserEntity entity = UserEntity.builder()
+        UserDocument entity = UserDocument.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .role(user.getRole())

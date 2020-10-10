@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @ValidInsuranceNo
 public class Patient {
-    private Integer id;
+    private String id;
     @NotEmpty(message = "Imie nie moze byc puste")
     private String name;
     @NotEmpty(message = "Nazwisko nie moze byc puste")

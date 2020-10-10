@@ -2,13 +2,13 @@ package pl.sda.springtraining.domain.doctor;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.sda.springtraining.external.doctor.DoctorEntity;
-import pl.sda.springtraining.external.doctor.JpaDoctorRepository;
+import pl.sda.springtraining.external.doctor.DoctorDocument;
+import pl.sda.springtraining.external.doctor.MongoDoctorRepository;
 import pl.sda.springtraining.web.doctor.SearchParams;
 
 import java.math.BigDecimal;
@@ -21,19 +21,24 @@ import java.util.List;
 public class DoctorServiceITTest {
 
     @Autowired
-    private JpaDoctorRepository doctorRepository;
+    private MongoDoctorRepository doctorRepository;
 
     @Autowired
     private DoctorService doctorService;
 
+    @BeforeEach
+    public void clean() {
+        doctorRepository.deleteAll();
+    }
+
     @Test
     public void shouldFilterDoctorsByName() {
         //given
-        DoctorEntity doc1 = DoctorEntity.builder()
+        DoctorDocument doc1 = DoctorDocument.builder()
                 .name("Adam").surname("Malysz").hireDate(LocalDate.now())
                 .hourRate(BigDecimal.TEN).specialization("Okulista")
                 .visits(new HashSet<>()).build();
-        DoctorEntity doc2 = DoctorEntity.builder()
+        DoctorDocument doc2 = DoctorDocument.builder()
                 .name("Robert").surname("Kubica").hireDate(LocalDate.now())
                 .hourRate(BigDecimal.TEN).specialization("Okulista")
                 .visits(new HashSet<>()).build();

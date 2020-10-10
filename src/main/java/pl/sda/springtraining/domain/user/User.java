@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 @Setter
 public class User {
-    private Integer id;
+    private String id;
     private String username;
     private String password;
     private String role;

@@ -31,7 +31,7 @@ public class PatientController {
 
     @GetMapping("/addOrUpdate")
     @PreAuthorize("hasRole('ADMIN')")
-    ModelAndView addPatientPage(@RequestParam(name = "id", required = false) Integer id) {
+    ModelAndView addPatientPage(@RequestParam(name = "id", required = false) String id) {
         ModelAndView mav = new ModelAndView("addPatient.html");
         if (id != null) {
             mav.addObject("patient", patientService.getOne(id));
@@ -43,7 +43,7 @@ public class PatientController {
 
     @GetMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
-    String deletePatient(@RequestParam Integer id) {
+    String deletePatient(@RequestParam String id) {
         patientService.delete(id);
 
         return "redirect:/patient";

@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DatabasePatientRepository implements PatientRepository {
 
-    private final JpaPatientRepository patientRepository;
+    private final MongoPatientRepository patientRepository;
 
     @Override
     public void create(Patient patient) {
-        PatientEntity entity = PatientEntity.builder()
+        PatientDocument entity = PatientDocument.builder()
                 .name(patient.getName())
                 .surname(patient.getSurname())
                 .insuranceNo(patient.getInsuranceNo())
@@ -37,12 +37,12 @@ public class DatabasePatientRepository implements PatientRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String id) {
         patientRepository.deleteById(id);
     }
 
     @Override
-    public Optional<Patient> getOne(int id) {
+    public Optional<Patient> getOne(String id) {
         return patientRepository.findById(id)
                 .map(mapToDomain());
     }
@@ -61,12 +61,12 @@ public class DatabasePatientRepository implements PatientRepository {
                 .map(ent -> mapToDomain(ent));
     }
 
-    private Function<PatientEntity, Patient> mapToDomain() {
+    private Function<PatientDocument, Patient> mapToDomain() {
         return ent -> new Patient(ent.getId(), ent.getName(),
                 ent.getSurname(), ent.getInsuranceNo(), null);
     }
 
-    private Patient mapToDomain(PatientEntity ent) {
+    private Patient mapToDomain(PatientDocument ent) {
         return new Patient(ent.getId(), ent.getName(),
                 ent.getSurname(), ent.getInsuranceNo(), null);
     }

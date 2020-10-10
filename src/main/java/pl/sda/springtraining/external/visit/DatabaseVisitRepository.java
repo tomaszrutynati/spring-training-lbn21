@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.springtraining.domain.visit.Visit;
 import pl.sda.springtraining.domain.visit.VisitRepository;
-import pl.sda.springtraining.external.doctor.JpaDoctorRepository;
-import pl.sda.springtraining.external.patient.JpaPatientRepository;
+import pl.sda.springtraining.external.doctor.MongoDoctorRepository;
+import pl.sda.springtraining.external.patient.MongoPatientRepository;
 
 import java.util.Optional;
 
@@ -14,32 +14,28 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DatabaseVisitRepository implements VisitRepository {
 
-    private final JpaVisitRepository visitRepository;
-    private final JpaPatientRepository patientRepository;
-    private final JpaDoctorRepository doctorRepository;
+    private final MongoVisitRepository visitRepository;
 
     @Override
     public void create(Visit visit) {
-        VisitEntity entity = VisitEntity.builder()
+        VisitDocument entity = VisitDocument.builder()
                 .visitDate(visit.getVisitDate())
                 .hour(visit.getHour())
                 .roomNumber(visit.getRoomNumber())
-                .doctor(doctorRepository.findById(visit.getDoctor())
-                        .orElseThrow(() -> new IllegalStateException("Doctor not exists")))
-                .patient(patientRepository.findById(visit.getPatient())
-                        .orElseThrow(() -> new IllegalStateException("Patient not exists")))
+                .doctor(visit.getDoctor())
+                .patient(visit.getPatient())
                 .build();
 
         visitRepository.save(entity);
     }
 
     @Override
-    public Optional<Visit> findById(int id) {
+    public Optional<Visit> findById(String id) {
         return visitRepository.findById(id)
                 .map(ent -> Visit.builder()
                         .id(ent.getId())
-                        .doctor(ent.getDoctor().getId())
-                        .patient(ent.getPatient().getId())
+                        .doctor(ent.getDoctor())
+                        .patient(ent.getPatient())
                         .roomNumber(ent.getRoomNumber())
                         .hour(ent.getHour())
                         .build());
@@ -48,7 +44,7 @@ public class DatabaseVisitRepository implements VisitRepository {
     @Override
     @Transactional
     public void update(Visit visit) {
-        VisitEntity entity = visitRepository.findById(visit.getId())
+        VisitDocument entity = visitRepository.findById(visit.getId())
                 .orElseThrow(() -> new IllegalStateException("Visit not exists"));
 
         entity.changeVisitTime(visit.getVisitDate(), visit.getHour());
